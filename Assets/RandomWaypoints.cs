@@ -5,18 +5,11 @@ using UnityEngine.AI;
 
 public class RandomWaypoints : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+  
     public NavMeshAgent agent;
     public float range; //radius of sphere
 
     public Transform centrePoint; //centre of the area the agent wants to move around in
-    //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
-
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
 
     
     void Update()
@@ -39,8 +32,7 @@ public class RandomWaypoints : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
         { 
-            //the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
-            //or add a for loop like in the documentation
+            //the 1.0f is the max distance from the random point to a point on the navmesh
             result = hit.position;
             return true;
         }

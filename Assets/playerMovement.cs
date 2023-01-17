@@ -5,31 +5,28 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
 
-    private CharacterController controller;
+    //public CharacterController controller;
+    public Rigidbody rigidBody;
     private Vector3 playerVelocity;
     public float playerSpeed;
    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        controller = gameObject.AddComponent<CharacterController>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
 
-         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        rigidBody.MovePosition(transform.position + move * Time.deltaTime * playerSpeed);
+        //  controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        // if (move != Vector3.zero)
+        // {
+        //     gameObject.transform.forward = move;
+        // }
 
-        // playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        // // playerVelocity.y += gravityValue * Time.deltaTime;
+        // controller.Move(playerVelocity * Time.deltaTime);
+
+       
         
     }
 }

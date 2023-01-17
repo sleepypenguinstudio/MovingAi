@@ -4,6 +4,8 @@ using UnityEngine;
 [CustomEditor(typeof(FieldOfView))]
 public class FieldOfViewEditor : Editor
 {
+
+   // public Light lightComp;
     private void OnSceneGUI()
     {
         FieldOfView fov = (FieldOfView)target;
@@ -21,6 +23,7 @@ public class FieldOfViewEditor : Editor
         {
             Handles.color = Color.green;
             Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+           // lightComp.color = Color.blue;
         }
     }
 

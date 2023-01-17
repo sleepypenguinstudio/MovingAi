@@ -7,18 +7,44 @@ public class FieldOfView : MonoBehaviour
     public float radius;
     [Range(0,360)]
     public float angle;
+    [Range(0,360)]
+    public float soundRadious;
 
     public GameObject playerRef;
+   // public GameObject glassWall;
+
+    public Light spotLight;
+   // Color orignalColor;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
+    public bool canHearPlayer;
 
     private void Start()
     {
+       // glassWall = GameObject.FindGameObjectWithTag("glassWall");
         playerRef = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(FOVRoutine());
+    }
+
+    private void Update() {
+
+
+        if(canSeePlayer)
+        {
+            spotLight.color = Color.red;   
+            // if(GameObject.FindGameObjectWithTag("glassWall"))
+            // {
+
+            // }
+        }
+        else{
+
+            spotLight.color = Color.blue;
+        }
+        
     }
 
     private IEnumerator FOVRoutine()
@@ -28,11 +54,12 @@ public class FieldOfView : MonoBehaviour
         while (true)
         {
             yield return wait;
-            FieldOfViewCheck();
+            FieldOfViewCheck(angle);
+           // FieldOfViewCheck(soundRadious);
         }
     }
 
-    private void FieldOfViewCheck()
+    private void FieldOfViewCheck(float viewAngle)
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
 
@@ -41,7 +68,7 @@ public class FieldOfView : MonoBehaviour
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+            if (Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
