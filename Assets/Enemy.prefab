@@ -114,7 +114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 10
   angle: 90
+  soundRadious: 360
+  soundRange: 5
   playerRef: {fileID: 2084293239446436261, guid: 30854b0bbeb1e8644bef49bedacfcd07, type: 3}
+  spotLight: {fileID: 0}
   targetMask:
     serializedVersion: 2
     m_Bits: 64
@@ -122,6 +125,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canSeePlayer: 0
+  canHearPlayer: 0
+  soundArea: {fileID: 2100000, guid: 09857c9c13bae60499a1dca9f750e352, type: 2}
 --- !u!195 &6715242892341334496
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -9,18 +9,21 @@ public class FieldOfView : MonoBehaviour
     public float angle;
     [Range(0,360)]
     public float soundRadious;
+    public float soundRange;
 
     public GameObject playerRef;
    // public GameObject glassWall;
 
     public Light spotLight;
-   // Color orignalColor;
+    Color color1;
+   
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
     public bool canHearPlayer;
+    public Renderer soundArea;
 
     private void Start()
     {
@@ -31,6 +34,8 @@ public class FieldOfView : MonoBehaviour
 
     private void Update() {
 
+         ColorUtility.TryParseHtmlString("#00FF00", out color1);
+
 
         if(canSeePlayer)
         {
@@ -39,10 +44,19 @@ public class FieldOfView : MonoBehaviour
             // {
 
             // }
+           
         }
         else{
 
             spotLight.color = Color.blue;
+        }
+
+        if(canHearPlayer)
+        {
+             soundArea.material.color = new  Color32(255, 0, 0, 25 );
+        }
+        else{
+             soundArea.material.color = new Color32(0, 255, 0, 25);
         }
         
     }
@@ -55,7 +69,7 @@ public class FieldOfView : MonoBehaviour
         {
             yield return wait;
             FieldOfViewCheck(angle);
-           // FieldOfViewCheck(soundRadious);
+            FieldOfSound(soundRadious);
         }
     }
 
@@ -82,5 +96,21 @@ public class FieldOfView : MonoBehaviour
         }
         else if (canSeePlayer)
             canSeePlayer = false;
+    }
+
+     private void FieldOfSound(float viewAngle)
+    {
+        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, soundRange, targetMask);
+
+        if (rangeChecks.Length != 0)
+        {
+            Transform target = rangeChecks[0].transform;
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+            canHearPlayer = true;
+
+               
+        }
+        else
+            canHearPlayer = false;
     }
 }

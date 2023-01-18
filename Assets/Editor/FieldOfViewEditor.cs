@@ -19,6 +19,17 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle01 * fov.radius);
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle02 * fov.radius);
 
+
+          Handles.color = Color.yellow;
+        Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.soundRange);
+
+        Vector3 viewAngle03 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
+        Vector3 viewAngle04 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angle / 2);
+
+        Handles.color = Color.yellow;
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle01 * fov.soundRange);
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle02 * fov.soundRange);
+
         if (fov.canSeePlayer)
         {
             Handles.color = Color.green;
